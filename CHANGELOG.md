@@ -1,3 +1,7 @@
+## 2.5.7-alpha1 (2020-01-08)
+New Features:
+  - Allow ignoreEmptyAdaptationSet in DASH
+
 ## 2.5.7 (2019-12-18)
 
 New Features:
