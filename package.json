@@ -1,5 +1,5 @@
 {
-  "name": "shaka-player",
+  "name": "@ssi/shaka-player",
   "description": "DASH/EME video player library",
   "version": "2.5.7",
   "homepage": "https://github.com/google/shaka-player",
