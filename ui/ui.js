@@ -180,8 +180,9 @@ shaka.ui.Overlay = class {
    * @private
    */
   defaultConfig_() {
-    return {
+    const config = {
       controlPanelElements: [
+        'play_pause',
         'time_and_duration',
         'spacer',
         'mute',
@@ -197,7 +198,7 @@ shaka.ui.Overlay = class {
         'cast',
       ],
       addSeekBar: true,
-      addBigPlayButton: true,
+      addBigPlayButton: false,
       castReceiverAppId: '',
       clearBufferOnQualityChange: true,
       seekBarColors: {
@@ -210,9 +211,20 @@ shaka.ui.Overlay = class {
         level: 'rgb(255, 255, 255)',
       },
       trackLabelFormat: shaka.ui.TrackLabelFormat.LANGUAGE,
+      fadeDelay: 0,
     };
-  }
 
+    // On mobile, by default, hide the volume slide and the small play/pause
+    // button and show the big play/pause button in the center.
+    // This is in line with default styles in Chrome.
+    if (this.isMobile()) {
+      config.addBigPlayButton = true;
+      config.controlPanelElements = config.controlPanelElements.filter(
+          (name) => name != 'play_pause' && name != 'volume');
+    }
+
+    return config;
+  }
 
   /**
    * @private

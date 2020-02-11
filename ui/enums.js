@@ -34,13 +34,5 @@ shaka.ui.Enums.MaterialDesignIcons = {
   'FAST_FORWARD': 'fast_forward',
   'PLAY': 'play_arrow',
   'PAUSE': 'pause',
-};
-
-
-/**
- * @enum {number}
- */
-shaka.ui.Enums.Opacity = {
-  'TRANSPARENT': 0,
-  'OPAQUE': 1,
+  'LOOP': 'loop',
 };

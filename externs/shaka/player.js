@@ -66,9 +66,12 @@ shaka.extern.StateChange;
  *
  *   decodedFrames: number,
  *   droppedFrames: number,
+ *   corruptedFrames: number,
  *   estimatedBandwidth: number,
  *
  *   loadLatency: number,
+ *   manifestTimeSeconds: number,
+ *   drmTimeSeconds: number,
  *   playTime: number,
  *   pauseTime: number,
  *   bufferingTime: number,
@@ -90,12 +93,16 @@ shaka.extern.StateChange;
  *   The height of the current video track.
  * @property {number} streamBandwidth
  *   The bandwidth required for the current streams (total, in bit/sec).
+ *   It takes into account the playbackrate.
  *
  * @property {number} decodedFrames
  *   The total number of frames decoded by the Player.  This may be
  *   <code>NaN</code> if this is not supported by the browser.
  * @property {number} droppedFrames
  *   The total number of frames dropped by the Player.  This may be
+ *   <code>NaN</code> if this is not supported by the browser.
+ * @property {number} corruptedFrames
+ *   The total number of corrupted frames dropped by the browser.  This may be
  *   <code>NaN</code> if this is not supported by the browser.
  * @property {number} estimatedBandwidth
  *   The current estimated network bandwidth (in bit/sec).
@@ -104,6 +111,10 @@ shaka.extern.StateChange;
  *   This is the number of seconds it took for the video element to have enough
  *   data to begin playback.  This is measured from the time load() is called to
  *   the time the <code>'loadeddata'</code> event is fired by the media element.
+ * @property {number} manifestTimeSeconds
+ *   The amount of time it took to download and parse the manifest.
+ * @property {number} drmTimeSeconds
+ *   The amount of time it took to download the first drm key.
  * @property {number} playTime
  *   The total time spent in a playing state in seconds.
  * @property {number} pauseTime
@@ -287,6 +298,9 @@ shaka.extern.Track;
  *   minPixels: number,
  *   maxPixels: number,
  *
+ *   minFrameRate: number,
+ *   maxFrameRate: number,
+ *
  *   minBandwidth: number,
  *   maxBandwidth: number
  * }}
@@ -315,6 +329,11 @@ shaka.extern.Track;
  * @property {number} maxPixels
  *   The maximum number of total pixels in a video track (i.e.
  *   <code>width * height</code>).
+ *
+ * @property {number} minFrameRate
+ *   The minimum framerate of a variant track.
+ * @property {number} maxFrameRate
+ *   The maximum framerate of a variant track.
  *
  * @property {number} minBandwidth
  *   The minimum bandwidth of a variant track, in bit/sec.
@@ -495,7 +514,8 @@ shaka.extern.AdvancedDrmConfiguration;
  *   delayLicenseRequestUntilPlayed: boolean,
  *   advanced: Object.<string, shaka.extern.AdvancedDrmConfiguration>,
  *   initDataTransform:
- *       ((function(!Uint8Array, ?shaka.extern.DrmInfo):!Uint8Array)|undefined)
+ *       ((function(!Uint8Array, ?shaka.extern.DrmInfo):!Uint8Array)|undefined),
+ *   logLicenseExchange: boolean
  * }}
  *
  * @property {shaka.extern.RetryParameters} retryParameters
@@ -523,6 +543,12 @@ shaka.extern.AdvancedDrmConfiguration;
  *   If given, this function is called with the init data from the
  *   manifest/media and should return the (possibly transformed) init data to
  *   pass to the browser.
+ * @property {boolean} logLicenseExchange
+ *   <i>Optional.</i><br>
+ *   If set to <code>true</code>, prints logs containing the license exchange.
+ *   This includes the init data, request, and response data, printed as base64
+ *   strings.  Don't use in production, for debugging only; has no affect in
+ *   release builds as logging is removed.
  *
  * @exportDoc
  */

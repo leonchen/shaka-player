@@ -125,7 +125,9 @@ shakaDemo.Config = class {
     const docLink = this.resolveExternLink_('.DrmConfiguration');
     this.addSection_(MessageIds.DRM_SECTION_HEADER, docLink)
         .addBoolInput_(MessageIds.DELAY_LICENSE,
-            'drm.delayLicenseRequestUntilPlayed');
+            'drm.delayLicenseRequestUntilPlayed')
+        .addBoolInput_(MessageIds.LOG_LICENSE_EXCHANGE,
+            'drm.logLicenseExchange');
     const advanced = shakaDemoMain.getConfiguration().drm.advanced || {};
     const robustnessSuggestions = [
       'SW_SECURE_CRYPTO',
@@ -241,6 +243,8 @@ shakaDemo.Config = class {
         .addNumberInput_(MessageIds.MAX_HEIGHT, prefix + 'maxHeight')
         .addNumberInput_(MessageIds.MIN_PIXELS, prefix + 'minPixels')
         .addNumberInput_(MessageIds.MAX_PIXELS, prefix + 'maxPixels')
+        .addNumberInput_(MessageIds.MIN_FRAMERATE, prefix + 'minFrameRate')
+        .addNumberInput_(MessageIds.MAX_FRAMERATE, prefix + 'maxFrameRate')
         .addNumberInput_(MessageIds.MIN_BANDWIDTH, prefix + 'minBandwidth')
         .addNumberInput_(MessageIds.MAX_BANDWIDTH, prefix + 'maxBandwidth');
   }
